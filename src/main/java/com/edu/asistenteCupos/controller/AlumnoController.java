@@ -1,16 +1,17 @@
 package com.edu.asistenteCupos.controller;
 
+import com.edu.asistenteCupos.Utils.dto.DocumentoAlumnoDto;
 import com.edu.asistenteCupos.domain.Alumno;
 import com.edu.asistenteCupos.service.AlumnoService;
+import com.edu.asistenteCupos.service.DocumentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -20,7 +21,8 @@ import java.util.List;
 class AlumnoController {
     @Autowired
     AlumnoService alumnoService;
-
+    @Autowired
+    DocumentoService documentService;
 
     @GetMapping
 
@@ -30,9 +32,18 @@ class AlumnoController {
     }
 
     @GetMapping("/consultar")
-    public ResponseEntity<String> consultar(@RequestParam String userInput) {
+    public ResponseEntity<String> consultar(@RequestParam(required=false) String userInput,
+                                            @RequestParam(required=false) MultipartFile file ) {
         try {
-           // String respuesta = alumnoService.consultar(userInput);
+            if(file != null){
+                System.out.println("File: " + file.getOriginalFilename());
+                List<DocumentoAlumnoDto> documentoAlumnoDtos = this.documentService.csvADto(file);
+                return ResponseEntity.ok("Se procesaron " + documentoAlumnoDtos.size() + " registros");
+
+            }
+
+
+            String respuesta = alumnoService.consultar(userInput);
             String respuesta = "La respuesta es: " + userInput ;
             ResponseEntity<String> response = ResponseEntity.ok(respuesta);
             System.out.println("Respuesta: " + response);
@@ -42,5 +53,22 @@ class AlumnoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error en la consulta: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/consultarcsv")
+    public ResponseEntity<List<DocumentoAlumnoDto>> consultar(@RequestParam("files") MultipartFile[] files) {
+
+
+
+        MultipartFile file = Arrays.stream(files).toList().get(0);
+        System.out.println("File: " + file.getOriginalFilename());
+        List<DocumentoAlumnoDto> documentoAlumnoDtos = this.documentService.csvADto(file);
+
+       // List<AlumnoStatus> documentoAlumnoDtos = this.documentService.csvAAlumnoStatus(file);
+
+
+
+        return ResponseEntity.ok(documentoAlumnoDtos);
+
     }
 }
