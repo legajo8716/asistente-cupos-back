@@ -31,9 +31,9 @@ class AlumnoController {
         return alumnoService.getAlumnos();
     }
 
-    @GetMapping("/consultar")
-    public ResponseEntity<String> consultar(@RequestParam(required=false) String userInput,
-                                            @RequestParam(required=false) MultipartFile file ) {
+    @PutMapping("/consultar")
+    public ResponseEntity<String> consultar(@RequestBody String userInput,
+                                            @RequestParam(value = "file", required = false) MultipartFile file ) {
         try {
             if(file != null){
                 System.out.println("File: " + file.getOriginalFilename());
@@ -44,7 +44,7 @@ class AlumnoController {
 
 
             String respuesta = alumnoService.consultar(userInput);
-            String respuesta = "La respuesta es: " + userInput ;
+
             ResponseEntity<String> response = ResponseEntity.ok(respuesta);
             System.out.println("Respuesta: " + response);
 
