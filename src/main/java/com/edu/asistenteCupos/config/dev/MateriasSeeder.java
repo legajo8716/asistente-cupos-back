@@ -1,5 +1,6 @@
 package com.edu.asistenteCupos.config.dev;
 
+import com.edu.asistenteCupos.Utils.CsvLoader;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,35 +9,25 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.*;
 
 @Configuration
 @RequiredArgsConstructor
-@Profile("dev")
-public class DataSeeder {
+public class MateriasSeeder {
 
   private final MateriaRepository materiaRepository;
-  String materiasCsv = "materias.csv";
+  String nombreCsv = "materias.csv";
+
+  public void cargarMaterias() throws Exception {
+    List<String[]> rows = CsvLoader.load(nombreCsv, "\\|");
+    Map<String, Materia> materias = crearMateriasDesde(rows);
+    asociarCorrelativas(rows, materias);
+  }
 
   @Bean
-  CommandLineRunner initDatabase() {
-    return args -> {
-      InputStream inputStream = getClass().getClassLoader().getResourceAsStream(materiasCsv);
-      if (inputStream == null) {
-        throw new FileNotFoundException("%s no encontrado".formatted(materiasCsv));
-      }
-
-      BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-      List<String[]> rows = reader.lines().filter(line -> !line.isBlank())
-                                  .map(line -> line.split("\\|")).toList();
-
-      Map<String, Materia> materias = crearMateriasDesde(rows);
-      asociarCorrelativas(rows, materias);
-    };
+  @Profile("dev")
+  CommandLineRunner runMateriasSeeder() {
+    return args -> cargarMaterias();
   }
 
   private Map<String, Materia> crearMateriasDesde(List<String[]> rows) {
