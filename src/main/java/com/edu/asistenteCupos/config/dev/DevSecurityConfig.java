@@ -1,4 +1,4 @@
-package com.edu.asistenteCupos.config;
+package com.edu.asistenteCupos.config.dev;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
