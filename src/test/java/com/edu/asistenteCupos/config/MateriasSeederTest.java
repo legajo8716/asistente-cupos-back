@@ -14,8 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("dev")
-class DataSeederTest {
-
+class MateriasSeederTest {
   @Autowired
   private MateriaRepository materiaRepository;
 
@@ -24,6 +23,6 @@ class DataSeederTest {
     List<Materia> materias = materiaRepository.findAll();
     assertThat(materias).isNotEmpty();
     assertThat(materias).extracting(Materia::getCodigo)
-                        .containsExactlyInAnyOrder("MAT101", "MAT102", "MAT103");
+                        .containsExactlyInAnyOrder("CI102", "NA301", "CI103");
   }
 }
