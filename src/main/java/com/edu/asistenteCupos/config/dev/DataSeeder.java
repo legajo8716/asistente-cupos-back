@@ -36,8 +36,6 @@ public class DataSeeder {
 
       Map<String, Materia> materias = crearMateriasDesde(rows);
       asociarCorrelativas(rows, materias);
-      System.out.println("✅ Materias en base: " + materiaRepository.count());
-
     };
   }
 
