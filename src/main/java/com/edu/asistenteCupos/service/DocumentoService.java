@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -21,12 +22,12 @@ public class DocumentoService {
 
     public  List<DocumentoAlumnoDto> csvADto(MultipartFile file){
         List<DocumentoAlumnoDto> documentoAlumnoDtos = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
              CSVReader csvReader = new CSVReader(br)) {
 
             String[] cabecera = csvReader.readNext();
             if (cabecera == null) {
-                throw new RuntimeException("El archivo CSV est· vacÌo.");
+                throw new RuntimeException("El CSV est√° vac√≠o.");
             }
 
             String[] valores;
