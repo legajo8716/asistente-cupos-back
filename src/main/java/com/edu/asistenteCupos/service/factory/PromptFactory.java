@@ -2,11 +2,13 @@ package com.edu.asistenteCupos.service.factory;
 
 import com.edu.asistenteCupos.Utils.FileLoader;
 import com.edu.asistenteCupos.domain.Comision;
+import com.edu.asistenteCupos.domain.Estudiante;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.domain.prompt.PromptBuilder;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.ChatOptions;
@@ -23,16 +25,18 @@ public class PromptFactory {
   private final ComisionRepository comisionRepository;
   private final String modelo = "gpt-4";
   private final double temperatura = 0.6;
+  @Setter
   private String systemMessageFileName = "prompt/system-message.txt";
+  @Setter
   private String criteriosFileName = "prompt/criterios-de-prioridad.txt";
 
-  public Prompt crearPrompt(String peticiones) {
+  public Prompt crearPrompt(List<Estudiante> peticiones) {
     return new Prompt(List.of(new SystemMessage(construirSystemMessage()),
       new UserMessage(construirUserMessage(peticiones))),
       ChatOptions.builder().model(modelo).temperature(temperatura).build());
   }
 
-  private String construirUserMessage(String peticiones) {
+  private String construirUserMessage(List<Estudiante> peticiones) {
     PromptBuilder builder = PromptBuilder.nuevo();
 
     List<Materia> materias = materiaRepository.findAll();
@@ -57,11 +61,4 @@ public class PromptFactory {
     return template.replace("{{CRITERIOS}}", criterios);
   }
 
-  public void setSystemMessageFileName(String systemMessageFileName) {
-    this.systemMessageFileName = systemMessageFileName;
-  }
-
-  public void setCriteriosFileName(String criteriosFileName) {
-    this.criteriosFileName = criteriosFileName;
-  }
 }
