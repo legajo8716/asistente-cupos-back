@@ -6,9 +6,9 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Alumno {
-    @Id
-    @GeneratedValue
-    private String id;
-    private String nombre;
+  @Id
+  @GeneratedValue
+  private String id;
+  private String nombre;
 
 }
