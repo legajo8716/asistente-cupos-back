@@ -1,6 +1,7 @@
 package com.edu.asistenteCupos.service;
 
 import com.edu.asistenteCupos.domain.Estudiante;
+import com.edu.asistenteCupos.domain.prompt.PromptPrinter;
 import com.edu.asistenteCupos.service.factory.PromptFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -22,7 +23,7 @@ public class AsistenteDeInscripcion {
 
   public String mostrarPrompt(List<Estudiante> peticionesDeInscripcion) {
     Prompt prompt = promptFactory.crearPrompt(peticionesDeInscripcion);
-    System.out.println("el prompt es: \n" + prompt.toString());
-    return prompt.toString();
+    System.out.println("el prompt es: \n" + PromptPrinter.imprimir(prompt, true));
+    return PromptPrinter.imprimir(prompt, false);
   }
 }
