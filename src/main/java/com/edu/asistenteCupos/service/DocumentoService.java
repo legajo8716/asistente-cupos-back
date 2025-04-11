@@ -27,7 +27,7 @@ public class DocumentoService {
 
             String[] cabecera = csvReader.readNext();
             if (cabecera == null) {
-                throw new RuntimeException("El archivo CSV est� vac�o.");
+                throw new RuntimeException("El CSV está vacío.");
             }
 
             String[] valores;
