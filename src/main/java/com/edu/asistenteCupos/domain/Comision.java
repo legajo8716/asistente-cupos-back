@@ -21,6 +21,6 @@ public class Comision {
   private int cupo;
 
   @ManyToOne
-  @JoinColumn(name = "materia_id")
+  @JoinColumn(name = "codigo", referencedColumnName = "codigo")
   private Materia materia;
 }
