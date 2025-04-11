@@ -1,26 +1,31 @@
 package com.edu.asistenteCupos.config;
 
+import com.edu.asistenteCupos.config.dev.ComisionSeeder;
+import com.edu.asistenteCupos.config.dev.MateriasSeeder;
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.repository.ComisionRepository;
+import com.edu.asistenteCupos.repository.MateriaRepository;
+import com.edu.asistenteCupos.repository.memory.ComisionRepositoryInMemory;
+import com.edu.asistenteCupos.repository.memory.MateriaRepositoryInMemory;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("dev")
 class ComisionSeederTest {
-  @Autowired
-  private ComisionRepository comisionRepository;
-
   @Test
-  void dadoUnCSVDeComisionesYMateriasSeGuardanEnLaBaseDeDatos() {
-    List<Comision> comisiones = comisionRepository.findAll();
+  void dadoUnCSVDeComisionesYMateriasSeGuardanEnLaBaseDeDatos() throws Exception {
+    ComisionRepository comisionRepo = new ComisionRepositoryInMemory();
+    MateriaRepository materiaRepo = new MateriaRepositoryInMemory();
+    ComisionSeeder comisionSeeder = new ComisionSeeder(comisionRepo, materiaRepo);
+    MateriasSeeder materiaSeeder = new MateriasSeeder(materiaRepo);
 
+    materiaSeeder.cargarMaterias("materias.csv");
+    comisionSeeder.cargarComisiones("comisiones.csv");
+
+
+    List<Comision> comisiones = comisionRepo.findAll();
     assertThat(comisiones).extracting(Comision::getId)
                           .containsExactlyInAnyOrder("CI102COM1", "CI103COM1", "CI103COM2",
                             "NA301COM1", "NA301COM2", "NA301COM3");

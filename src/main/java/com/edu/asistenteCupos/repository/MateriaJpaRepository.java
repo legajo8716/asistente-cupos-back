@@ -1,17 +1,10 @@
 package com.edu.asistenteCupos.repository;
 
 import com.edu.asistenteCupos.domain.Materia;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface MateriaRepository {
-  Materia save(Materia materia);
-
-  Optional<Materia> findById(String id);
-
-  List<Materia> findAll();
-
+public interface MateriaJpaRepository extends JpaRepository<Materia, String> {
   Optional<Materia> findByCodigo(String codigoMateria);
 }
-
