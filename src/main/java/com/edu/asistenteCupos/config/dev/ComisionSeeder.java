@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +49,7 @@ public class ComisionSeeder {
   }
 
   @Bean
+  @Order(2)
   @Profile("dev")
   CommandLineRunner runComisionSeeder() {
     return args -> cargarComisiones(nombreCsv);
