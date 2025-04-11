@@ -12,4 +12,14 @@ public class Estudiante {
   private List<String> comisiones;
   private HistoriaAcademica historiaAcademica;
   private boolean correlativa;
+
+  public Estudiante(String nombre, String legajo, String materia, List<String> comisiones, HistoriaAcademica historiaAcademica, boolean correlativa) {
+    this.nombre = nombre;
+    this.legajo = legajo;
+    this.materia = materia;
+    this.comisiones = comisiones;
+    this.historiaAcademica = historiaAcademica;
+    this.correlativa = correlativa;
+  }
+
 }

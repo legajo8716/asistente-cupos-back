@@ -60,5 +60,4 @@ public class PromptFactory {
     }
     return template.replace("{{CRITERIOS}}", criterios);
   }
-
 }

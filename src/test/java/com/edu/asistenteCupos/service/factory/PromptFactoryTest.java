@@ -1,6 +1,7 @@
 package com.edu.asistenteCupos.service.factory;
 
 import com.edu.asistenteCupos.domain.Comision;
+import com.edu.asistenteCupos.domain.Estudiante;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.prompt.Prompt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,8 +37,8 @@ class PromptFactoryTest {
   @Test
   void alCrearElPromptCorrectamenteContieneTodosLosCriteriosDePrioridad() {
     promptFactory.setCriteriosFileName("test-criterios.txt");
-    String peticionesDeInscripcion = "";
 
+    List<Estudiante> peticionesDeInscripcion = new ArrayList<>();
     Prompt prompt = promptFactory.crearPrompt(peticionesDeInscripcion);
     List<Message> messages = prompt.getInstructions();
 
@@ -48,8 +50,8 @@ class PromptFactoryTest {
   @Test
   void alCrearElPromptVerificaQueContieneInstruccionesFijasDelTemplate() {
     promptFactory.setSystemMessageFileName("test-system-message.txt");
-    String peticionesDeInscripcion = "";
 
+    List<Estudiante> peticionesDeInscripcion = new ArrayList<>();
     Prompt prompt = promptFactory.crearPrompt(peticionesDeInscripcion);
     String systemMessage = prompt.getInstructions().get(0).getText();
 
