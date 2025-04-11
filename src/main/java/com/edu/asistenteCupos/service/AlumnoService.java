@@ -15,38 +15,29 @@ import java.util.logging.Logger;
 @RequiredArgsConstructor
 
 public class AlumnoService {
-    private final OpenAiChatModel chatModel;
+  private final OpenAiChatModel chatModel;
 
-    Logger logger = Logger.getLogger(AlumnoService.class.getName());
+  Logger logger = Logger.getLogger(AlumnoService.class.getName());
 
-    @Autowired
-    AlumnoRepository alumnoRepository;
-    public List<Alumno> getAlumnos() {
-       return this.alumnoRepository.findAll();
-    }
-    public String consultar(String userInput) throws JsonProcessingException {
-        String prompsIngeniering = "Asigná cupos de materias a estudiantes según prioridad. Datos disponibles: cupos por materia, inscripciones últimos 3 cuatrimestres, inscripciones actuales, aprobadas último año, materia solicitada, totales de inscripciones y aprobadas, materias para graduarse, correlativas. " +
-                "Criterios (prioridad 0-100): menos materias para graduarse ? más prioridad. Sin materias actuales ? prioridad máxima. Una sola materia ? alta prioridad. Pocas aprobadas pero inscripto recientemente ? más prioridad. Pocas aprobadas recientes ? más necesidad. " +
-                "Puede cursar sin correlativas solo si le faltan 1 o 2 materias para egresar. No considerar superposición horaria si no hay datos. " +
-                "Devolver la lista con este formato: [{\"alumno\": \"Nombre\", \"materia\": \"Materia\", \"prioridad\": 0-100, \"cupoAsignado\": true|false, \"explicacion\": \"Motivo\", \"cumple con las correlativas\": \"Sí\"|\"No. Modalidad libre\" }]. " +
-                "Evaluá, asigná y explicá cada decisión con claridad. solo quiero que tu respuesta sea la lista de json sin nada mas. Los datos son: ";
+  @Autowired
+  AlumnoRepository alumnoRepository;
 
+  public List<Alumno> getAlumnos() {
+    return this.alumnoRepository.findAll();
+  }
 
+  public String consultar(String userInput) throws JsonProcessingException {
+    String prompsIngeniering =
+      "Asignï¿½ cupos de materias a estudiantes segï¿½n prioridad. Datos disponibles: cupos por materia, inscripciones ï¿½ltimos 3 cuatrimestres, inscripciones actuales, aprobadas ï¿½ltimo aï¿½o, materia solicitada, totales de inscripciones y aprobadas, materias para graduarse, correlativas. " +
+        "Criterios (prioridad 0-100): menos materias para graduarse ? mï¿½s prioridad. Sin materias actuales ? prioridad mï¿½xima. Una sola materia ? alta prioridad. Pocas aprobadas pero inscripto recientemente ? mï¿½s prioridad. Pocas aprobadas recientes ? mï¿½s necesidad. " +
+        "Puede cursar sin correlativas solo si le faltan 1 o 2 materias para egresar. No considerar superposiciï¿½n horaria si no hay datos. " +
+        "Devolver la lista con este formato: [{\"alumno\": \"Nombre\", \"materia\": \"Materia\", \"prioridad\": 0-100, \"cupoAsignado\": true|false, \"explicacion\": \"Motivo\", \"cumple con las correlativas\": \"Sï¿½\"|\"No. Modalidad libre\" }]. " +
+        "Evaluï¿½, asignï¿½ y explicï¿½ cada decisiï¿½n con claridad. solo quiero que tu respuesta sea la lista de json sin nada mas. Los datos son: ";
 
+    String call = chatModel.call(prompsIngeniering + userInput);
 
-        String call = chatModel.call(prompsIngeniering+userInput);
-
-
-        // String call="";
-       // ObjectMapper mapper = new ObjectMapper();
-        //List<AsignacionCupoDto> asignaciones = mapper.readValue(call, new TypeReference<List<AsignacionCupoDto>>() {});
-
-
-        logger.info("User input: " + userInput);
-        logger.info("call: " + call);
-        return call;
-    }
-
-
-
+    logger.info("User input: " + userInput);
+    logger.info("call: " + call);
+    return call;
+  }
 }
