@@ -5,8 +5,10 @@ import lombok.Data;
 @Data
 public class DocumentoAlumnoDto {
 
-  private String nombre;
-  private String dni;
-  private String materiasCursadas;
-  private String materiasAbandonadas;
+  private int insc3;
+  private int inscAct;
+  private int aprobUlt;
+  private int inscTot;
+  private int aprobTot;
+  private int restantes;
 }

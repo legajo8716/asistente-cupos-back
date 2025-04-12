@@ -22,4 +22,6 @@ public class Estudiante {
     this.correlativa = correlativa;
   }
 
+  public Estudiante() {
+  }
 }
