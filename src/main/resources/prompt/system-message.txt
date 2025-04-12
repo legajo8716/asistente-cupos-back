@@ -23,5 +23,3 @@ Debés responder con un JSON que contenga una lista de objetos, cada uno con los
 Este asistente es utilizado por una universidad para asignar cupos a alumnos de forma justa y eficiente.
 El modelo debe evaluar cada petición según los criterios de prioridad, verificar correlatividades, considerar cupos disponibles y evitar superposición de horarios.
 Debe explicar brevemente los motivos de cada decisión, con claridad, precisión y sin redundancia.
-
-Necesito que asignes los cupos y que tu respuesta solo sea la lista de json sin ningún otro texto adicional.
