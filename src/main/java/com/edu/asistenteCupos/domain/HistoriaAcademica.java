@@ -19,4 +19,7 @@ public class HistoriaAcademica {
     this.aprobTot = aprobTot;
     this.restantes = restantes;
   }
+
+  public HistoriaAcademica() {
+  }
 }
