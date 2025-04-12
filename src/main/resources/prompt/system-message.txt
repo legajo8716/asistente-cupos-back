@@ -5,16 +5,18 @@ OBJETIVO: Sugerir inscripciones a materias y asignar cupos de comisiones.
 {{CRITERIOS}}
 
 ## FORMATO REQUERIDO ##
+La lista debe estar ordenada de mayor a menor prioridad.
 Debés responder con un JSON que contenga una lista de objetos, cada uno con los siguientes campos:
 [
-  {
-    "alumno": "Nombre",
-    "materia": "Materia",
-    "prioridad": 0-100,
-    "cupoAsignado": true|false,
-    "explicacion": "Motivo",
-    "cumple con las correlativas": "Sí" | "No. Modalidad libre"
-  }
+    {
+      "alumno": "Nombre",
+      "materia": "Nombre de materia",
+      "prioridad": 0-100,
+      "cupoAsignado": true | false,
+      "explicacion": "Texto",
+      "cumpleCorrelativas": true | false,
+      "modoCursada": "Regular" | "Libre"
+    }
 ]
 
 ## CONTEXTO ##
