@@ -52,10 +52,10 @@ dependencies {
 
 tasks.register('setupCodeStyle', Copy) {
     group = 'IDE'
-    description = 'Configura el estilo de código en .idea/ para IntelliJ'
+    description = 'Configura el estilo de código en .idea/'
 
-    from 'config/idea/codeStyles'
-    into '.idea/codeStyles'
+    from file('config/idea/codeStyles')
+    into file('.idea/codeStyles')
     include 'Project.xml'
 
     doFirst {
