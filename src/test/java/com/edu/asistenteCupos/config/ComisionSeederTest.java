@@ -1,5 +1,6 @@
 package com.edu.asistenteCupos.config;
 
+import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.config.dev.ComisionSeeder;
 import com.edu.asistenteCupos.config.dev.MateriasSeeder;
 import com.edu.asistenteCupos.domain.Comision;
@@ -18,8 +19,10 @@ class ComisionSeederTest {
   void dadoUnCSVDeComisionesYMateriasSeGuardanEnLaBaseDeDatos() throws Exception {
     ComisionRepository comisionRepo = new ComisionRepositoryInMemory();
     MateriaRepository materiaRepo = new MateriaRepositoryInMemory();
-    ComisionSeeder comisionSeeder = new ComisionSeeder(comisionRepo, materiaRepo);
-    MateriasSeeder materiaSeeder = new MateriasSeeder(materiaRepo);
+    ClasspathResourceLoader classpathResourceLoader = new ClasspathResourceLoader();
+    ComisionSeeder comisionSeeder = new ComisionSeeder(comisionRepo, materiaRepo,
+      classpathResourceLoader);
+    MateriasSeeder materiaSeeder = new MateriasSeeder(materiaRepo, classpathResourceLoader);
 
     materiaSeeder.cargarMaterias("materias.csv");
     comisionSeeder.cargarComisiones("comisiones.csv");
