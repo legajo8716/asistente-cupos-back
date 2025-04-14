@@ -1,6 +1,6 @@
 package com.edu.asistenteCupos.service;
 
-import com.edu.asistenteCupos.Utils.dto.DocumentoAlumnoDto;
+import com.edu.asistenteCupos.controller.dto.DocumentoAlumnoDto;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.stereotype.Service;

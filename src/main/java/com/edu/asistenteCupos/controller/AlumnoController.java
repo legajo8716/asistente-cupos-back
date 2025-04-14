@@ -1,6 +1,6 @@
 package com.edu.asistenteCupos.controller;
 
-import com.edu.asistenteCupos.Utils.dto.DocumentoAlumnoDto;
+import com.edu.asistenteCupos.controller.dto.DocumentoAlumnoDto;
 import com.edu.asistenteCupos.domain.Alumno;
 import com.edu.asistenteCupos.service.AlumnoService;
 import com.edu.asistenteCupos.service.DocumentoService;

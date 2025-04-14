@@ -1,8 +1,10 @@
 package com.edu.asistenteCupos.mapper;
 
-import com.edu.asistenteCupos.Utils.dto.PeticionInscriptionDTO;
-import com.edu.asistenteCupos.Utils.dto.SugerenciaInscripcionDto;
-import com.edu.asistenteCupos.domain.*;
+import com.edu.asistenteCupos.controller.dto.SugerenciaInscripcionDto;
+import com.edu.asistenteCupos.domain.Comision;
+import com.edu.asistenteCupos.domain.Estudiante;
+import com.edu.asistenteCupos.domain.Materia;
+import com.edu.asistenteCupos.domain.SugerenciaInscripcion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -12,7 +14,6 @@ import java.util.Map;
 
 @Mapper(componentModel = "spring")
 public interface SugerenciaInscripcionMapper {
-
   @Mapping(source = ".", target = "estudiante", qualifiedByName = "mapEstudiante")
   @Mapping(source = ".", target = "comision", qualifiedByName = "mapComision")
   @Mapping(source = ".", target = "motivo", qualifiedByName = "mapMotivo")
@@ -26,7 +27,7 @@ public interface SugerenciaInscripcionMapper {
 
   List<SugerenciaInscripcionDto> toSugerenciaInscripcionDtoList(List<SugerenciaInscripcion> sugerencias);
 
-  @Named("mapEstudiante") // Agregamos la anotación @Named
+  @Named("mapEstudiante")
   default Estudiante mapEstudiante(Map<String, Object> jsonMap) {
     if (jsonMap == null) {
       return null;
@@ -41,7 +42,7 @@ public interface SugerenciaInscripcionMapper {
     return estudiante;
   }
 
-  @Named("mapComision") // Agregamos la anotación @Named
+  @Named("mapComision")
   default Comision mapComision(Map<String, Object> jsonMap) {
     if (jsonMap == null) {
       return null;
@@ -58,7 +59,7 @@ public interface SugerenciaInscripcionMapper {
     return comision;
   }
 
-  @Named("mapMotivo") // Agregamos la anotación @Named
+  @Named("mapMotivo")
   default String mapMotivo(Map<String, Object> jsonMap) {
     if (jsonMap == null) {
       return null;
@@ -71,7 +72,7 @@ public interface SugerenciaInscripcionMapper {
     }
   }
 
-  @Named("mapCupoAsignado") // Agregamos la anotación @Named
+  @Named("mapCupoAsignado")
   default Boolean mapCupoAsignado(Map<String, Object> jsonMap) {
     if (jsonMap == null) {
       return null;
@@ -84,7 +85,7 @@ public interface SugerenciaInscripcionMapper {
     }
   }
 
-  @Named("mapPrioridad") // Agregamos la anotación @Named
+  @Named("mapPrioridad")
   default Integer mapPrioridad(Map<String, Object> jsonMap) {
     if (jsonMap == null) {
       return null;
@@ -96,6 +97,4 @@ public interface SugerenciaInscripcionMapper {
       return null;
     }
   }
-
-  List<PeticionInscripcion> toDomainList(List<PeticionInscriptionDTO> peticionesInscripcion);
 }
