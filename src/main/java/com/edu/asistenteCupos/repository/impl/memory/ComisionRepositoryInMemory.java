@@ -1,4 +1,4 @@
-package com.edu.asistenteCupos.repository.memory;
+package com.edu.asistenteCupos.repository.impl.memory;
 
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.repository.ComisionRepository;

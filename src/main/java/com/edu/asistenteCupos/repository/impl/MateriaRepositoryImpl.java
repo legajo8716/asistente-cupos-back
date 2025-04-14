@@ -1,6 +1,8 @@
-package com.edu.asistenteCupos.repository;
+package com.edu.asistenteCupos.repository.impl;
 
 import com.edu.asistenteCupos.domain.Materia;
+import com.edu.asistenteCupos.repository.spring.MateriaJpaRepository;
+import com.edu.asistenteCupos.repository.MateriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,11 +17,6 @@ public class MateriaRepositoryImpl implements MateriaRepository {
   @Override
   public Materia save(Materia materia) {
     return jpaRepository.save(materia);
-  }
-
-  @Override
-  public Optional<Materia> findById(String id) {
-    return jpaRepository.findById(id);
   }
 
   @Override

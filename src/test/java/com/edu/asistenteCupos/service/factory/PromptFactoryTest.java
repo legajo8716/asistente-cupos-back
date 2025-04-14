@@ -1,18 +1,13 @@
 package com.edu.asistenteCupos.service.factory;
 
 import com.edu.asistenteCupos.domain.Comision;
-import com.edu.asistenteCupos.domain.Estudiante;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
-import com.edu.asistenteCupos.repository.memory.ComisionRepositoryInMemory;
-import com.edu.asistenteCupos.repository.memory.MateriaRepositoryInMemory;
+import com.edu.asistenteCupos.repository.impl.memory.ComisionRepositoryInMemory;
+import com.edu.asistenteCupos.repository.impl.memory.MateriaRepositoryInMemory;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.prompt.Prompt;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

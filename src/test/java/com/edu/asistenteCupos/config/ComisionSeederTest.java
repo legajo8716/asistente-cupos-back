@@ -6,8 +6,8 @@ import com.edu.asistenteCupos.config.dev.MateriasSeeder;
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
-import com.edu.asistenteCupos.repository.memory.ComisionRepositoryInMemory;
-import com.edu.asistenteCupos.repository.memory.MateriaRepositoryInMemory;
+import com.edu.asistenteCupos.repository.impl.memory.ComisionRepositoryInMemory;
+import com.edu.asistenteCupos.repository.impl.memory.MateriaRepositoryInMemory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

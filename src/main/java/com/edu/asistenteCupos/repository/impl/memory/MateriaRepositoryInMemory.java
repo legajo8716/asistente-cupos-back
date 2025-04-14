@@ -1,4 +1,4 @@
-package com.edu.asistenteCupos.repository.memory;
+package com.edu.asistenteCupos.repository.impl.memory;
 
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
@@ -12,11 +12,6 @@ public class MateriaRepositoryInMemory implements MateriaRepository {
   public Materia save(Materia materia) {
     data.put(materia.getCodigo(), materia);
     return materia;
-  }
-
-  @Override
-  public Optional<Materia> findById(String id) {
-    return Optional.ofNullable(data.get(id));
   }
 
   @Override

@@ -1,6 +1,8 @@
-package com.edu.asistenteCupos.repository;
+package com.edu.asistenteCupos.repository.impl;
 
 import com.edu.asistenteCupos.domain.Comision;
+import com.edu.asistenteCupos.repository.spring.ComisionJpaRepository;
+import com.edu.asistenteCupos.repository.ComisionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
