@@ -1,6 +1,6 @@
 package com.edu.asistenteCupos.config.dev;
 
-import com.edu.asistenteCupos.Utils.FileLoader;
+import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,12 @@ import java.util.*;
 @Configuration
 @RequiredArgsConstructor
 public class MateriasSeeder {
-
   private final MateriaRepository materiaRepository;
+  private final ClasspathResourceLoader resourceLoader;
   String nombreCsv = "materias.csv";
 
   public void cargarMaterias(String nombreArchivo) throws Exception {
-    List<String[]> rows = FileLoader.leerCSV(nombreArchivo, "\\|");
+    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
     Map<String, Materia> materias = crearMateriasDesde(rows);
     asociarCorrelativas(rows, materias);
   }

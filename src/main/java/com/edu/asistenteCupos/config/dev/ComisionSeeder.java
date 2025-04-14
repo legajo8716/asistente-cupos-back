@@ -1,6 +1,6 @@
 package com.edu.asistenteCupos.config.dev;
 
-import com.edu.asistenteCupos.Utils.FileLoader;
+import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
@@ -21,10 +21,11 @@ public class ComisionSeeder {
 
   private final ComisionRepository comisionRepository;
   private final MateriaRepository materiaRepository;
+  private final ClasspathResourceLoader resourceLoader;
   private final String nombreCsv = "comisiones.csv";
 
   public void cargarComisiones(String nombreArchivo) throws Exception {
-    List<String[]> rows = FileLoader.leerCSV(nombreArchivo, "\\|");
+    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
 
     for (String[] row : rows) {
       String codigoMateria = row[0];

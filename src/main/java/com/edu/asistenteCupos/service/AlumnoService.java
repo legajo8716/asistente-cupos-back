@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 @Component
 @RequiredArgsConstructor
-
 public class AlumnoService {
   private final OpenAiChatModel chatModel;
 
