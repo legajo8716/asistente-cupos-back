@@ -80,7 +80,7 @@ public class PromptBuilder {
 
       prompt.append("RESULTADO ESPERADO:\n");
       for (Comision comision : comisiones) {
-        prompt.append("- ").append(comision.getId()).append(" | ")
+        prompt.append("- ").append(comision.getCodigo()).append(" | ")
               .append(comision.getMateria().getCodigo()).append(" | ").append(comision.getHorario())
               .append(" | ").append("Cupo: ").append(comision.getCupo()).append("\n");
       }

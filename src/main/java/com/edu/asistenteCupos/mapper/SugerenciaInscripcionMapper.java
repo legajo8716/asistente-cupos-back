@@ -22,7 +22,7 @@ public interface SugerenciaInscripcionMapper {
   SugerenciaInscripcion toSugerenciaInscripcion(Map<String, Object> jsonMap);
 
   @Mapping(source = "estudiante.nombre", target = "nombreEstudiante")
-  @Mapping(source = "comision.id", target = "codigoComision")
+  @Mapping(source = "comision.codigo", target = "codigoComision")
   SugerenciaInscripcionDto toSugerenciaInscripcionDto(SugerenciaInscripcion sugerencia);
 
   List<SugerenciaInscripcionDto> toSugerenciaInscripcionDtoList(List<SugerenciaInscripcion> sugerencias);

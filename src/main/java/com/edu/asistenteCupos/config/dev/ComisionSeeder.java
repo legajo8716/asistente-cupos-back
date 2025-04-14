@@ -27,9 +27,9 @@ public class ComisionSeeder {
   public void cargarComisiones(String nombreArchivo) throws Exception {
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
 
-    for (String[] row : rows) {
+    for (String[] row : rows.stream().skip(1).toList()) {
       String codigoMateria = row[0];
-      String comisionId = row[1];
+      String codigoComision = row[1];
       String horario = row[2];
       int cupo = Integer.parseInt(row[3]);
 
@@ -38,13 +38,13 @@ public class ComisionSeeder {
       if (materiaOpt.isPresent()) {
         Materia materia = materiaOpt.get();
 
-        Comision comision = Comision.builder().id(comisionId).materia(materia).horario(horario)
+        Comision comision = Comision.builder().codigo(codigoComision).materia(materia).horario(horario)
                                     .cupo(cupo).build();
 
         comisionRepository.save(comision);
       } else {
         System.err.printf("Materia con código [%s] no encontrada para la comisión [%s - %n]",
-          codigoMateria, comisionId);
+          codigoMateria, codigoComision);
       }
     }
   }

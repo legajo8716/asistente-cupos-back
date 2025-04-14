@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Comision {
   @Id
-  private String id;
+  private String codigo;
   private String horario;
   private int cupo;
 

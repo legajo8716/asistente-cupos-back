@@ -20,7 +20,7 @@ class PromptFactoryTest {
     MateriaRepository materiaRepository = new MateriaRepositoryInMemory();
     ComisionRepository comisionRepository = new ComisionRepositoryInMemory();
 
-    Materia materia = new Materia(1L, "Algoritmos", "CI101", List.of());
+    Materia materia = new Materia("CI101","Algoritmos", List.of());
     materiaRepository.save(materia);
 
     Comision comision = new Comision("CI101COM1", "Lunes 10:00 a 12:00", 30, materia);

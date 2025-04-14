@@ -41,7 +41,7 @@ class PromptBuilderTest {
   @Test
   void construyePromptConComisionesYLaMuestraEnElPrompt() {
     Materia materia = Materia.builder().nombre("Programación I").codigo("INF101").build();
-    Comision comision = Comision.builder().id("INF101COM1").materia(materia)
+    Comision comision = Comision.builder().codigo("INF101COM1").materia(materia)
                                 .horario("Lunes 10:00 a 13:00").cupo(5).build();
 
     String prompt = PromptBuilder.nuevo().conComisiones(List.of(comision)).construir();
@@ -68,7 +68,7 @@ class PromptBuilderTest {
   @Test
   void construyePromptCompletoYLoMuestraEnElPrompt() {
     Materia mate = Materia.builder().nombre("Matemática Discreta").codigo("MAT201").build();
-    Comision comision = Comision.builder().id("MAT201COM2").materia(mate)
+    Comision comision = Comision.builder().codigo("MAT201COM2").materia(mate)
                                 .horario("Viernes 08:00 a 11:00").cupo(10).build();
 
     String prompt = PromptBuilder.nuevo().conMaterias(List.of(mate))

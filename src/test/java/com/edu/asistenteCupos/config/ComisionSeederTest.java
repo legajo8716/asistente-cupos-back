@@ -2,8 +2,8 @@ package com.edu.asistenteCupos.config;
 
 import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.config.dev.ComisionSeeder;
-import com.edu.asistenteCupos.config.dev.MateriasSeeder;
 import com.edu.asistenteCupos.domain.Comision;
+import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import com.edu.asistenteCupos.repository.impl.memory.ComisionRepositoryInMemory;
@@ -16,26 +16,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ComisionSeederTest {
   @Test
-  void dadoUnCSVDeComisionesYMateriasSeGuardanEnLaBaseDeDatos() throws Exception {
+  void cargaComisionesDesdeCSVDeTest() throws Exception {
     ComisionRepository comisionRepo = new ComisionRepositoryInMemory();
     MateriaRepository materiaRepo = new MateriaRepositoryInMemory();
-    ClasspathResourceLoader classpathResourceLoader = new ClasspathResourceLoader();
-    ComisionSeeder comisionSeeder = new ComisionSeeder(comisionRepo, materiaRepo,
-      classpathResourceLoader);
-    MateriasSeeder materiaSeeder = new MateriasSeeder(materiaRepo, classpathResourceLoader);
+    ClasspathResourceLoader loader = new ClasspathResourceLoader();
+    materiaRepo.save(Materia.builder().codigo("TEST101").nombre("Intro Test").build());
+    materiaRepo.save(Materia.builder().codigo("TEST102").nombre("Avanzado Test").build());
 
-    materiaSeeder.cargarMaterias("materias.csv");
-    comisionSeeder.cargarComisiones("comisiones.csv");
-
+    ComisionSeeder seeder = new ComisionSeeder(comisionRepo, materiaRepo, loader);
+    seeder.cargarComisiones("comisiones_test.csv");
 
     List<Comision> comisiones = comisionRepo.findAll();
-    assertThat(comisiones).extracting(Comision::getId)
-                          .containsExactlyInAnyOrder("CI102COM1", "CI103COM1", "CI103COM2",
-                            "NA301COM1", "NA301COM2", "NA301COM3");
-    Comision comision = comisiones.stream().filter(c -> c.getId().equals("CI103COM2")).findFirst()
-                                  .orElseThrow();
-
-    assertThat(comision.getHorario()).isEqualTo("Miércoles 09:00 a 11:59");
-    assertThat(comision.getCupo()).isEqualTo(6);
+    assertThat(comisiones).hasSize(2);
+    Comision comision = comisionRepo.findById("TEST101COM1").orElseThrow();
+    assertThat(comision.getHorario()).isEqualTo("Martes 10:00 a 12:00");
+    assertThat(comision.getCupo()).isEqualTo(30);
+    assertThat(comision.getMateria()).isNotNull();
+    assertThat(comision.getMateria().getCodigo()).isEqualTo("TEST101");
   }
 }

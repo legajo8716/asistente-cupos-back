@@ -34,9 +34,9 @@ public class MateriasSeeder {
 
   private Map<String, Materia> crearMateriasDesde(List<String[]> rows) {
     Map<String, Materia> materias = new HashMap<>();
-    for (String[] row : rows) {
-      String nombre = row[0].trim();
-      String codigo = row[1].trim();
+    for (String[] row : rows.stream().skip(1).toList()) {
+      String codigo = row[0].trim();
+      String nombre = row[1].trim();
 
       Materia materia = Materia.builder().nombre(nombre).codigo(codigo).build();
 

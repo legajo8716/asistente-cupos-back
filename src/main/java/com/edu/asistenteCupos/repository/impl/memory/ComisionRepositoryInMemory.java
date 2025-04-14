@@ -10,7 +10,7 @@ public class ComisionRepositoryInMemory implements ComisionRepository {
 
   @Override
   public Comision save(Comision comision) {
-    data.put(comision.getId(), comision);
+    data.put(comision.getCodigo(), comision);
     return comision;
   }
 
