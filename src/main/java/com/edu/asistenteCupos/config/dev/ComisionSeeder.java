@@ -27,8 +27,8 @@ public class ComisionSeeder {
     List<String[]> rows = FileLoader.leerCSV(nombreArchivo, "\\|");
 
     for (String[] row : rows) {
-      String comisionId = row[0];
-      String codigoMateria = row[1];
+      String codigoMateria = row[0];
+      String comisionId = row[1];
       String horario = row[2];
       int cupo = Integer.parseInt(row[3]);
 

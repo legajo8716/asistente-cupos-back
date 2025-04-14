@@ -1,11 +1,40 @@
-Elementos de Programación y Lógica|CI101|
-Lectura y Escritura Académica|CI102|
-Matemática|CI103|
-Introducción a la Programación|NB201|CI101,CI102,CI103
-Organización de Computadoras|NB202|CI101,CI102,CI103
-Matemática I|NB203|CI101,CI102,CI103
-Programación con Objetos I|NB204|CI101,CI102,CI103,NB201
-Bases de Datos|NB205|CI101,CI102,CI103,NB203
-Estructuras de Datos|NB206|CI101,CI102,CI103,NB201
-Programación con Objetos II|NB207|CI101,CI102,CI103,NB204
-Redes de Computadoras|NA301|NB202
+Elementos de Programacion y Logica|80005|no
+Algoritmos|1307|1045
+Lectura y Escritura Academica|80000|no
+Matematica|8003N|no
+Introduccion a la Programacion|487|80000,8003N,80005
+Organizacion de Computadoras|1032|80000,8003N,80005
+Matematica I|1033|80000,8003N,80005
+Programacion con Objetos I|1034|487
+Bases de Datos|1035|1033
+Estructuras de Datos|1036|487
+Programacion con Objetos II|1037|80000,8003N,80005,487
+Redes de Computadoras|1038|1032
+Sistemas Operativos|1039|1032
+Programacion Concurrente|1040|1036
+Matematica II|1041|1033
+Elementos de Ingenieria de Software|1042|1037
+Construccion de Interfaces de Usuario|1043|1037
+Estrategias de Persistencia|1044|1037,1035
+Programacion Funcional|1045|1036
+Desarrollo de Aplicaciones|1046|1043,1044,1042
+Laboratorio de Sistemas Operativos y Redes|1047|1038,1039
+Ingles I|90000|no
+Ingles II|90028|90000
+Seguridad Informatica|646|1047
+Introduccion a las Arquitecturas de Software|1314|01040
+Practica de Desarrollo de Software|1305|1034,1036
+Gestion de Proyectos de Desarrollo de Software|1304|no
+Programacion con Objetos III|110371|1037
+Introduccion a la Bioinformatica|1052|no
+Politicas Publicas en la Sociedad de la Informacion y la Era Digital|1316|no
+Seminarios|1805|no
+Sistemas de Informacion Geografica|1306|no
+Bases de Datos II|1053|1035
+Introduccion al Blockchain|1055
+Introduccion al Desarrollo de Videojuegos|1056|1034
+Logica y programacion|1302|1033,487
+Taller de Trabajo Intelectual|N-751|no
+Taller de Trabajo Universitario|N-752|no
+Trabajo de Insercion Profesional|1060|no
+Sistemas Distribuidos|1311|1040,1047
