@@ -1,9 +1,9 @@
 package com.edu.asistenteCupos.service.factory;
 
-import com.edu.asistenteCupos.Utils.FileLoader;
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.domain.Estudiante;
 import com.edu.asistenteCupos.domain.Materia;
+import com.edu.asistenteCupos.domain.PeticionInscripcion;
 import com.edu.asistenteCupos.domain.prompt.PromptBuilder;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
@@ -30,13 +30,13 @@ public class PromptFactory {
   @Setter
   private String criteriosFileName = "prompt/criterios-de-prioridad.txt";
 
-  public Prompt crearPrompt(List<Estudiante> peticiones) {
+  public Prompt crearPrompt(List<PeticionInscripcion> peticiones) {
     return new Prompt(List.of(new SystemMessage(construirSystemMessage()),
       new UserMessage(construirUserMessage(peticiones))),
       ChatOptions.builder().model(modelo).temperature(temperatura).build());
   }
 
-  private String construirUserMessage(List<Estudiante> peticiones) {
+  private String construirUserMessage(List<PeticionInscripcion> peticiones) {
     PromptBuilder builder = PromptBuilder.nuevo();
 
     List<Materia> materias = materiaRepository.findAll();
@@ -52,12 +52,8 @@ public class PromptFactory {
   private String construirSystemMessage() {
     String template = "";
     String criterios = "";
-    try {
-      template = String.join("\n", FileLoader.leerLineas(systemMessageFileName));
-      criterios = String.join("\n", FileLoader.leerLineas(criteriosFileName));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    template = String.join("\n", "FileLoader.leerLineas(systemMessageFileName)");
+    criterios = String.join("\n", "FileLoader.leerLineas(criteriosFileName)");
     return template.replace("{{CRITERIOS}}", criterios);
   }
 }

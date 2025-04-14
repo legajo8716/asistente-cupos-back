@@ -1,4 +1,4 @@
-package com.edu.asistenteCupos.repository.memory;
+package com.edu.asistenteCupos.repository.impl.memory;
 
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.repository.ComisionRepository;
@@ -10,7 +10,7 @@ public class ComisionRepositoryInMemory implements ComisionRepository {
 
   @Override
   public Comision save(Comision comision) {
-    data.put(comision.getId(), comision);
+    data.put(comision.getCodigo(), comision);
     return comision;
   }
 

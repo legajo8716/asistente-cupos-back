@@ -1,4 +1,4 @@
-package com.edu.asistenteCupos.Utils.dto;
+package com.edu.asistenteCupos.controller.dto;
 
 import lombok.Data;
 

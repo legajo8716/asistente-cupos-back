@@ -1,4 +1,4 @@
-package com.edu.asistenteCupos.repository;
+package com.edu.asistenteCupos.repository.spring;
 
 import com.edu.asistenteCupos.domain.Materia;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,8 @@
-Elementos de Programacion y Logica|80005|no
+nombre | codigo | tiene
+Elementos de Programacion y Logica|80005|-
 Algoritmos|1307|1045
-Lectura y Escritura Academica|80000|no
-Matematica|8003N|no
+Lectura y Escritura Academica|80000|-
+Matematica|8003N|-
 Introduccion a la Programacion|487|80000,8003N,80005
 Organizacion de Computadoras|1032|80000,8003N,80005
 Matematica I|1033|80000,8003N,80005
@@ -19,22 +20,22 @@ Estrategias de Persistencia|1044|1037,1035
 Programacion Funcional|1045|1036
 Desarrollo de Aplicaciones|1046|1043,1044,1042
 Laboratorio de Sistemas Operativos y Redes|1047|1038,1039
-Ingles I|90000|no
+Ingles I|90000|-
 Ingles II|90028|90000
 Seguridad Informatica|646|1047
 Introduccion a las Arquitecturas de Software|1314|01040
 Practica de Desarrollo de Software|1305|1034,1036
-Gestion de Proyectos de Desarrollo de Software|1304|no
+Gestion de Proyectos de Desarrollo de Software|1304|-
 Programacion con Objetos III|110371|1037
-Introduccion a la Bioinformatica|1052|no
-Politicas Publicas en la Sociedad de la Informacion y la Era Digital|1316|no
-Seminarios|1805|no
-Sistemas de Informacion Geografica|1306|no
+Introduccion a la Bioinformatica|1052|-
+Politicas Publicas en la Sociedad de la Informacion y la Era Digital|1316|-
+Seminarios|1805|-
+Sistemas de Informacion Geografica|1306|-
 Bases de Datos II|1053|1035
 Introduccion al Blockchain|1055
 Introduccion al Desarrollo de Videojuegos|1056|1034
 Logica y programacion|1302|1033,487
-Taller de Trabajo Intelectual|N-751|no
-Taller de Trabajo Universitario|N-752|no
-Trabajo de Insercion Profesional|1060|no
+Taller de Trabajo Intelectual|N-751|-
+Taller de Trabajo Universitario|N-752|-
+Trabajo de Insercion Profesional|1060|-
 Sistemas Distribuidos|1311|1040,1047

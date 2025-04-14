@@ -1,11 +1,12 @@
 package com.edu.asistenteCupos.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NaturalId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +18,9 @@ import java.util.List;
 @Builder
 public class Materia {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String codigo;
 
   private String nombre;
-
-  @NaturalId
-  private String codigo;
 
   @ManyToMany
   @Builder.Default
