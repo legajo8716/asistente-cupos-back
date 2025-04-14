@@ -1,8 +1,8 @@
 package com.edu.asistenteCupos.domain.prompt;
 
 import com.edu.asistenteCupos.domain.Comision;
-import com.edu.asistenteCupos.domain.Estudiante;
 import com.edu.asistenteCupos.domain.Materia;
+import com.edu.asistenteCupos.domain.PeticionInscripcion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class PromptBuilder {
   private final StringBuilder prompt = new StringBuilder();
   private List<Materia> materias = new ArrayList<>();
   private List<Comision> comisiones = new ArrayList<>();
-  private List<Estudiante> peticionesInscripcion = new ArrayList<>();
+  private List<PeticionInscripcion> peticionesInscripcion = new ArrayList<>();
 
   private PromptBuilder() {}
 
@@ -31,7 +31,7 @@ public class PromptBuilder {
     return this;
   }
 
-  public PromptBuilder conPeticionesDeInscripcion(List<Estudiante> peticiones) {
+  public PromptBuilder conPeticionesDeInscripcion(List<PeticionInscripcion> peticiones) {
     this.peticionesInscripcion = peticiones;
     return this;
   }
@@ -99,28 +99,6 @@ public class PromptBuilder {
       prompt.append(
         "- El modelo debe respetar los cupos disponibles, las correlatividades, y evitar superposición de horarios.\n\n");
       prompt.append("DATOS DE LOS ESTUDIANTES:\n");
-      for (Estudiante e : peticionesInscripcion) {
-        prompt.append("- Nombre: ").append(e.getNombre()).append("\n");
-        prompt.append("  Legajo: ").append(e.getLegajo()).append("\n");
-        prompt.append("  Materia solicitada: ").append(e.getMateria()).append("\n");
-        prompt.append("  Comisiones disponibles: ").append(String.join(", ", e.getComisiones()))
-              .append("\n");
-        prompt.append("  Historia académica:\n");
-        prompt.append("    - Inscripciones últimos 3 cuat.: ")
-              .append(e.getHistoriaAcademica().getInsc3()).append("\n");
-        prompt.append("    - Inscripciones actuales: ")
-              .append(e.getHistoriaAcademica().getInscAct()).append("\n");
-        prompt.append("    - Aprobadas últimos cuat.: ")
-              .append(e.getHistoriaAcademica().getAprobUlt()).append("\n");
-        prompt.append("    - Total de inscripciones: ")
-              .append(e.getHistoriaAcademica().getInscTot()).append("\n");
-        prompt.append("    - Total de materias aprobadas: ")
-              .append(e.getHistoriaAcademica().getAprobTot()).append("\n");
-        prompt.append("    - Materias restantes para graduarse: ")
-              .append(e.getHistoriaAcademica().getRestantes()).append("\n");
-        prompt.append("  Cumple correlativas: ").append(e.isCorrelativa() ? "Sí" : "No")
-              .append("\n\n");
-      }
     }
   }
 }

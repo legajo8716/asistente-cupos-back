@@ -3,6 +3,7 @@ package com.edu.asistenteCupos.domain.prompt;
 import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.domain.Estudiante;
 import com.edu.asistenteCupos.domain.Materia;
+import com.edu.asistenteCupos.domain.PeticionInscripcion;
 import com.edu.asistenteCupos.utils.EstudianteTestFactory;
 import org.junit.jupiter.api.Test;
 
@@ -52,9 +53,9 @@ class PromptBuilderTest {
 
   @Test
   void construyePromptConLasPeticionesDeInscripcionYLaMuestraEnElPrompt() {
-    List<Estudiante> estudiantes = EstudianteTestFactory.crearEstudiantesDePrueba();
+    List<PeticionInscripcion> peticiones = EstudianteTestFactory.peticionInscripcionesDePrueba();
 
-    String prompt = PromptBuilder.nuevo().conPeticionesDeInscripcion(estudiantes).construir();
+    String prompt = PromptBuilder.nuevo().conPeticionesDeInscripcion(peticiones).construir();
 
     assertTrue(prompt.contains("## INSTRUCCIÓN PARA MODELO DE LENGUAJE ##"));
     assertTrue(prompt.contains(
