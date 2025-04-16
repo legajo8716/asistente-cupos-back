@@ -1,12 +1,11 @@
 package com.edu.asistenteCupos.service;
 
+import com.edu.asistenteCupos.Utils.JsonConverter;
 import com.edu.asistenteCupos.domain.PeticionInscripcion;
 import com.edu.asistenteCupos.domain.SugerenciaInscripcion;
 import com.edu.asistenteCupos.domain.prompt.PromptPrinter;
 import com.edu.asistenteCupos.mapper.SugerenciaInscripcionMapper;
 import com.edu.asistenteCupos.service.factory.PromptFactory;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -44,12 +43,7 @@ public class AsistenteDeInscripcion {
   }
 
   private List<SugerenciaInscripcion> parsearASugerencias(String json) {
-    List<Map<String, Object>> jsonList;
-    try {
-      jsonList = objectMapper.readValue(json, new TypeReference<>() {});
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException("Error al parsear la sugerencia: " + e.getMessage());
-    }
+    List<Map<String, Object>> jsonList = JsonConverter.readValue(json);
     return jsonList.stream().map(mapper::toSugerenciaInscripcion).collect(Collectors.toList());
   }
 
