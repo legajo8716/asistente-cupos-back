@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'idea'
+    id 'org.sonarqube' version '4.4.1.3373'
 }
 
 group = 'com.edu'
@@ -27,6 +28,17 @@ repositories {
     maven {
         name = 'Central Portal Snapshots'
         url = 'https://central.sonatype.com/repository/maven-snapshots/'
+    }
+}
+
+sonar {
+    properties {
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.projectKey', 'flav-ia'
+        property 'sonar.projectName', 'FLAV-IA'
+        property 'sonar.sourceEncoding', 'UTF-8'
+        property 'sonar.java.coveragePlugin', 'jacoco'
+        property 'sonar.coverage.jacoco.xmlReportPaths', "build/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
 
