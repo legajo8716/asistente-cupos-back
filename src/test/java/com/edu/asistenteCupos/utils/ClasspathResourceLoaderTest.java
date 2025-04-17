@@ -4,10 +4,8 @@ import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
-
 import java.io.IOException;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClasspathResourceLoaderTest {

@@ -8,9 +8,12 @@ import java.util.List;
 
 public class GeneradorDeDatosDePrueba {
   public static List<PeticionInscripcion> peticionInscripcionesDePrueba() {
-    Estudiante ana = new Estudiante("Ana Torres", "1001", new HistoriaAcademica(2, 1, 1, 6, 4, 8));
-    Estudiante carla = new Estudiante("Carla Méndez", "1003",
-      new HistoriaAcademica(1, 1, 0, 4, 2, 10));
+    Estudiante ana=Estudiante.builder().legajo("1001").nombre("Ana Torres").historiaAcademica(HistoriaAcademica.builder().legajo("100").insc3(2)
+           .inscAct(0).aprobUlt(1).inscTot(6).aprobTot(3).restantes(5).correlativas("Si").build()).build();
+
+    Estudiante carla=Estudiante.builder().legajo("1003").nombre("Carla Méndez").historiaAcademica(HistoriaAcademica.builder().legajo("100").insc3(1)
+            .inscAct(1).aprobUlt(0).inscTot(4).aprobTot(2).restantes(10).correlativas("Si").build()).build();
+
     return List.of(new PeticionInscripcion(ana, "Matematica", List.of(""), true),
       new PeticionInscripcion(carla, "Matematica", List.of(""), true));
   }
