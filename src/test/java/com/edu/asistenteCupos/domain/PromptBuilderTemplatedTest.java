@@ -22,13 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class PromptBuilderTemplatedTest {
+  Function<String, String> normalizarString;
   private PromptTemplateProvider promptTemplateProvider;
   private PromptBuilderTemplated promptBuilder;
   private List<Materia> materias;
   private List<Comision> comisiones;
   private List<PeticionInscripcion> peticiones;
   private PeticionInscripcionMapper peticionInscripcionMapper;
-  Function<String, String> normalizarString;
+
   @BeforeEach
   void setUp() {
     promptTemplateProvider = Mockito.mock(PromptTemplateProvider.class);
@@ -42,9 +43,7 @@ public class PromptBuilderTemplatedTest {
       new Comision("Martes 14:00", "COM002", 3, fisica));
 
     peticiones = GeneradorDeDatosDePrueba.peticionInscripcionesDePrueba();
-    normalizarString = s -> s.replace("\r\n", "\n")
-            .replaceAll("\\s+$", "")
-            .trim();
+    normalizarString = s -> s.replace("\r\n", "\n").replaceAll("\\s+$", "").trim();
   }
 
   @Test
@@ -57,13 +56,12 @@ public class PromptBuilderTemplatedTest {
     when(promptTemplateProvider.systemResource()).thenReturn(systemResource);
     when(promptTemplateProvider.userResource()).thenReturn(userResource);
 
-    Prompt prompt = promptBuilder.conMaterias(materias).conComisiones(comisiones).conModelo("1")
-                                 .conTemperatura(0.1).conPeticionesDeInscripcion(peticiones)
-                                 .construir();
+    Prompt prompt = promptBuilder.conMaterias(materias).conComisiones(comisiones)
+                                 .conPeticionesDeInscripcion(peticiones).construir();
 
-    String resultado = "[ " +peticiones.stream()
-            .map(mapper::toJson)
-            .collect(Collectors.joining(", "))+ " ]" ; ;
+    String resultado =
+      "[ " + peticiones.stream().map(mapper::toJson).collect(Collectors.joining(", ")) + " ]";
+    ;
 
     assertEquals(2, prompt.getInstructions().size());
     Message systemMessage = prompt.getInstructions().get(0);
@@ -73,6 +71,7 @@ public class PromptBuilderTemplatedTest {
       " with - MAT101 (Matemáticas)\n- FIS201 (Física) and - COM001 (Lunes 10:00)\n- COM002 (Martes 14:00)";
 
     assertEquals(expectedSystemContent, systemMessage.getText());
-    assertEquals(this.normalizarString.apply(expectedUserContent), this.normalizarString.apply(userMessage.getText()));
+    assertEquals(this.normalizarString.apply(expectedUserContent),
+      this.normalizarString.apply(userMessage.getText()));
   }
 }

@@ -25,6 +25,7 @@ public class ComisionSeeder {
   private final String nombreCsv = "comisiones.csv";
 
   public void cargarComisiones(String nombreArchivo) throws Exception {
+    if(!comisionRepository.findAll().isEmpty()) {return;}
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
 
     for (String[] row : rows.stream().skip(1).toList()) {
