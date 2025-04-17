@@ -2,9 +2,11 @@ package com.edu.asistenteCupos.domain;
 
 import com.edu.asistenteCupos.Utils.PromptTemplateProvider;
 import com.edu.asistenteCupos.domain.prompt.PromptBuilderTemplated;
+import com.edu.asistenteCupos.mapper.PeticionInscripcionMapper;
 import com.edu.asistenteCupos.utils.GeneradorDeDatosDePrueba;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -13,6 +15,8 @@ import org.springframework.core.io.Resource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -23,7 +27,8 @@ public class PromptBuilderTemplatedTest {
   private List<Materia> materias;
   private List<Comision> comisiones;
   private List<PeticionInscripcion> peticiones;
-
+  private PeticionInscripcionMapper peticionInscripcionMapper;
+  Function<String, String> normalizarString;
   @BeforeEach
   void setUp() {
     promptTemplateProvider = Mockito.mock(PromptTemplateProvider.class);
@@ -37,10 +42,14 @@ public class PromptBuilderTemplatedTest {
       new Comision("Martes 14:00", "COM002", 3, fisica));
 
     peticiones = GeneradorDeDatosDePrueba.peticionInscripcionesDePrueba();
+    normalizarString = s -> s.replace("\r\n", "\n")
+            .replaceAll("\\s+$", "")
+            .trim();
   }
 
   @Test
   void construirEntregaUnPromptCorrecto() {
+    PeticionInscripcionMapper mapper = Mappers.getMapper(PeticionInscripcionMapper.class);
     String systemPromptContent = "System prompt content";
     String userPromptContent = "User prompt content with {peticiones} with {materias} and {comisiones}";
     Resource systemResource = new ByteArrayResource(systemPromptContent.getBytes());
@@ -52,8 +61,10 @@ public class PromptBuilderTemplatedTest {
                                  .conTemperatura(0.1).conPeticionesDeInscripcion(peticiones)
                                  .construir();
 
-    String str = peticiones.toString();
-    String resultado = str.substring(1, str.length() - 1);
+    String resultado = "[ " +peticiones.stream()
+            .map(mapper::toJson)
+            .collect(Collectors.joining(", "))+ " ]" ; ;
+
     assertEquals(2, prompt.getInstructions().size());
     Message systemMessage = prompt.getInstructions().get(0);
     Message userMessage = prompt.getInstructions().get(1);
@@ -62,6 +73,6 @@ public class PromptBuilderTemplatedTest {
       " with - MAT101 (Matemáticas)\n- FIS201 (Física) and - COM001 (Lunes 10:00)\n- COM002 (Martes 14:00)";
 
     assertEquals(expectedSystemContent, systemMessage.getText());
-    assertEquals(expectedUserContent, userMessage.getText());
+    assertEquals(this.normalizarString.apply(expectedUserContent), this.normalizarString.apply(userMessage.getText()));
   }
 }
