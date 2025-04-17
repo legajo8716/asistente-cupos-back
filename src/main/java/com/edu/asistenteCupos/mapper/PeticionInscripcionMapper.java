@@ -5,6 +5,7 @@ import com.edu.asistenteCupos.controller.dto.PeticionInscripcionCsvDTO;
 import com.edu.asistenteCupos.controller.dto.PeticionInscriptionDTO;
 import com.edu.asistenteCupos.domain.HistoriaAcademica;
 import com.edu.asistenteCupos.domain.PeticionInscripcion;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -42,4 +43,16 @@ public interface PeticionInscripcionMapper {
 
     return historiaAcademica;
   }
-}
+
+
+  @Named("toJson")
+  default String toJson(PeticionInscripcion peticion) {
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
+      return mapper.writeValueAsString(peticion);
+    } catch (Exception e) {
+      throw new RuntimeException("Error al convertir PeticionInscripcion a JSON", e);
+    }
+  }
+  }

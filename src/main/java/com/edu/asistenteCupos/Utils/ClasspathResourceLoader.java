@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,6 @@ public class ClasspathResourceLoader {
       throw new IllegalArgumentException("Archivo [%s] no encontrado".formatted(path));
     }
 
-    return new BufferedReader(new InputStreamReader(resource.getInputStream()));
+    return new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
   }
 }
