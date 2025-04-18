@@ -54,7 +54,7 @@ public class ComisionSeeder {
 
   @Bean
   @Order(2)
-  @Profile("dev")
+  @Profile({"dev", "test"})
   CommandLineRunner runComisionSeeder() {
     return args -> cargarComisiones(nombreCsv);
   }

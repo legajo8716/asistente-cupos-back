@@ -30,7 +30,7 @@ public class MateriasSeeder {
 
   @Bean
   @Order(1)
-  @Profile("dev")
+  @Profile({"dev", "test"})
   CommandLineRunner runMateriasSeeder() {
     return args -> cargarMaterias(nombreCsv);
   }
