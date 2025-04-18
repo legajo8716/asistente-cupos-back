@@ -3,6 +3,7 @@ package com.edu.asistenteCupos.config.dev;
 import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -36,6 +37,7 @@ public class MateriasSeeder {
   @Bean
   @Order(1)
   @Profile({"dev", "test"})
+  @Transactional
   CommandLineRunner runMateriasSeeder() {
     return args -> cargarMaterias(nombreCsv);
   }

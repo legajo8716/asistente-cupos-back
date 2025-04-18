@@ -5,6 +5,7 @@ import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -61,6 +62,7 @@ public class ComisionSeeder {
   @Bean
   @Order(2)
   @Profile({"dev", "test"})
+  @Transactional
   CommandLineRunner runComisionSeeder() {
     return args -> cargarComisiones(nombreCsv);
   }
