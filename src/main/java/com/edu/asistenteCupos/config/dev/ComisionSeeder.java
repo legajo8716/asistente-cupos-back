@@ -5,6 +5,7 @@ import com.edu.asistenteCupos.domain.Comision;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -23,16 +24,17 @@ public class ComisionSeeder {
   private final ComisionRepository comisionRepository;
   private final MateriaRepository materiaRepository;
   private final ClasspathResourceLoader resourceLoader;
-  private final String nombreCsv = "comisiones.csv";
+  private final String nombreCsv = "csv/comisiones.csv";
 
   public void cargarComisiones(String nombreArchivo) throws Exception {
+    log.info("Comienza la carga de comisiones desde [{}].", nombreCsv);
     if (!comisionRepository.findAll().isEmpty()) {
       log.info("No se cargan comisiones porque ya existen.");
       return;
     }
-    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
+    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|").stream().skip(1).toList();
 
-    for (String[] row : rows.stream().skip(1).toList()) {
+    for (String[] row : rows) {
       String codigoMateria = row[0];
       String codigoComision = row[1];
       String horario = row[2];
@@ -60,6 +62,7 @@ public class ComisionSeeder {
   @Bean
   @Order(2)
   @Profile({"dev", "test"})
+  @Transactional
   CommandLineRunner runComisionSeeder() {
     return args -> cargarComisiones(nombreCsv);
   }

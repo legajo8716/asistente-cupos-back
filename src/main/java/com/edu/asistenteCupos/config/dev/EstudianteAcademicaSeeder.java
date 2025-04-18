@@ -24,7 +24,7 @@ public class EstudianteAcademicaSeeder {
     private final EstudianteRepository alumnoRepository;
     private final MateriaRepository materiaRepository;
     private final ClasspathResourceLoader resourceLoader;
-    String nombreCsv = "historiaAcademica.csv";
+    String nombreCsv = "csv/historiaAcademica.csv";
     public void cargarEstudiante(String nombreArchivo) throws Exception {
         List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
         for (String[] row : rows.stream().skip(1).toList()) {

@@ -22,11 +22,10 @@ public class ClasspathResourceLoader {
   public List<String[]> leerCSV(String path, String separador) throws IOException {
     try (BufferedReader reader = crearBufferedReader(path)) {
       return reader.lines().filter(line -> !line.isBlank()).map(line -> line.split(separador))
-                   .map(arr -> {
+                   .peek(arr -> {
                      for (int i = 0; i < arr.length; i++) {
                        arr[i] = arr[i].trim();
                      }
-                     return arr;
                    }).toList();
     }
   }

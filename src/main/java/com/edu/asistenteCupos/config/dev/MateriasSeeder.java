@@ -3,6 +3,7 @@ package com.edu.asistenteCupos.config.dev;
 import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -19,36 +20,36 @@ import java.util.*;
 public class MateriasSeeder {
   private final MateriaRepository materiaRepository;
   private final ClasspathResourceLoader resourceLoader;
-  String nombreCsv = "materias.csv";
+  String nombreCsv = "csv/materias.csv";
 
   public void cargarMaterias(String nombreArchivo) throws Exception {
+    log.info("Comienza la carga de materias desde [{}].", nombreCsv);
     if (!materiaRepository.findAll().isEmpty()) {
       log.info("No se cargan materias porque ya existen.");
       return;
     }
-    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
+    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|").stream().skip(1).toList();
     Map<String, Materia> materias = crearMateriasDesde(rows);
     asociarCorrelativas(rows, materias);
-    log.info("Se cargaron ${} materias.", materias.size());
+    log.info("Se cargaron [{}] materias.", materias.size());
   }
 
   @Bean
   @Order(1)
   @Profile({"dev", "test"})
+  @Transactional
   CommandLineRunner runMateriasSeeder() {
     return args -> cargarMaterias(nombreCsv);
   }
 
   private Map<String, Materia> crearMateriasDesde(List<String[]> rows) {
     Map<String, Materia> materias = new HashMap<>();
-    for (String[] row : rows.stream().skip(1).toList()) {
+    for (String[] row : rows) {
       String nombre = row[0].trim();
       String codigo = row[1].trim();
 
-      Materia materia = Materia.builder().nombre(nombre).codigo(codigo).build();
-
-      materiaRepository.save(materia);
-
+      Materia materiaAGuardar = Materia.builder().nombre(nombre).codigo(codigo).build();
+      Materia materia = materiaRepository.save(materiaAGuardar);
       materias.put(codigo, materia);
     }
     return materias;
