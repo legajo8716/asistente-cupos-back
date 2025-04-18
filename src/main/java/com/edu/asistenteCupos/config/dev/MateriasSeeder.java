@@ -56,11 +56,11 @@ public class MateriasSeeder {
   }
 
   private void asociarCorrelativas(List<String[]> rows, Map<String, Materia> materias) {
-    for (String[] row : rows) {
+    for (String[] row : rows.stream().skip(1).toList()) {
       String codigo = row[1].trim();
       Materia materia = materias.get(codigo);
 
-      if (row.length > 2 && !row[2].isBlank()) {
+      if (row.length > 2 && !row[2].equals("-")) {
         List<Materia> correlativas = Arrays.stream(row[2].split(",")).map(String::trim)
                                            .map(materias::get).filter(Objects::nonNull).toList();
 

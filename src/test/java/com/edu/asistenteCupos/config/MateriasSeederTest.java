@@ -28,7 +28,7 @@ class MateriasSeederTest {
   }
 
   @Test
-  void cargaMaterias_yCorrelativas_correctamente() throws Exception {
+  void cargaMateriasYCorrelativasCorrectamente() throws Exception {
     List<String[]> data = List.of(new String[]{"nombre", "codigo", "correlativas"},
       new String[]{"Álgebra", "1001", ""}, new String[]{"Análisis I", "1002", "1001"},
       new String[]{"Física I", "1003", "1001,1002"});
