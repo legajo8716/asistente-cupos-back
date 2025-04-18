@@ -36,8 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
-src/main/resources/prompt/.DS_Store
+## MAC ##
+*.DS_Store
 
-src/main/resources/.DS_Store
-
+## ENV ##
 .env
