@@ -3,8 +3,8 @@ version: '3.8'
 services:
   app:
     image: ghcr.io/flav-ia/asistente-cupos-back/app:latest
-    ports:
-      - "${MYSQL_PORT}:8080"
+    expose:
+      - "8080"
     environment:
       - SPRING_PROFILES_ACTIVE=test
       - SPRING_AI_OPENAI_API_KEY=${CHATGPT_APIKEY}
@@ -19,8 +19,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
-    ports:
-      - "${MYSQL_PORT}:3306"
+    expose:
+      - "3306"
     networks:
       - backend
 
