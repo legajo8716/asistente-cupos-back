@@ -45,15 +45,29 @@ jobs:
 
       - name: Wait for the database to be ready
         run: |
-          echo "Waiting for MySQL to be ready..."
-          until docker exec -it $(docker ps -qf "name=db") mysqladmin -u $DB_USERNAME --password=$DB_PASSWORD ping --silent; do
-            echo "Waiting for MySQL..."
+          echo "Esperando por MySQL..."
+          DB_CONTAINER=$(docker ps -qf "name=db")
+          for i in {1..20}; do
+            if docker exec $DB_CONTAINER mysqladmin -u "$DB_USERNAME" --password="$DB_PASSWORD" ping --silent; then
+              echo "✅ MySQL está vivo!"
+              exit 0
+            fi
+            echo "⏳ sigue buscando MySQL... ($i/20)"
             sleep 5
           done
+          
+          echo "❌ MySQL no vivió. Logs del container:"
+          docker logs $DB_CONTAINER
+          exit 1
 
-#      - name: Deploy to Render
-#        run: |
-#          curl -X POST \
-#            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-#            -d "service_id=YOUR_SERVICE_ID&branch=main" \
-#            https://api.render.com/deploy
+      - name: Deploy to Render
+        run: |
+          curl --request POST \
+          --url https://api.render.com/v1/services/srv-d010j5buibrs73et51v0/deploys \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
+          --header 'content-type: application/json' \
+          --data '
+            {
+              "clearCache": "clear"
+            }'
