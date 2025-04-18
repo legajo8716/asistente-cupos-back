@@ -61,7 +61,6 @@ public class PromptBuilderTemplatedTest {
 
     String resultado =
       "[ " + peticiones.stream().map(mapper::toJson).collect(Collectors.joining(", ")) + " ]";
-    ;
 
     assertEquals(2, prompt.getInstructions().size());
     Message systemMessage = prompt.getInstructions().get(0);

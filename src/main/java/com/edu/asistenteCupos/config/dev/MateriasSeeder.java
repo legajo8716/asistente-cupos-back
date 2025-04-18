@@ -20,7 +20,9 @@ public class MateriasSeeder {
   String nombreCsv = "materias.csv";
 
   public void cargarMaterias(String nombreArchivo) throws Exception {
-    if(!materiaRepository.findAll().isEmpty()) {return;}
+    if (!materiaRepository.findAll().isEmpty()) {
+      return;
+    }
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
     Map<String, Materia> materias = crearMateriasDesde(rows);
     asociarCorrelativas(rows, materias);

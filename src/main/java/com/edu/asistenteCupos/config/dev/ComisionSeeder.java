@@ -25,7 +25,9 @@ public class ComisionSeeder {
   private final String nombreCsv = "comisiones.csv";
 
   public void cargarComisiones(String nombreArchivo) throws Exception {
-    if(!comisionRepository.findAll().isEmpty()) {return;}
+    if (!comisionRepository.findAll().isEmpty()) {
+      return;
+    }
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
 
     for (String[] row : rows.stream().skip(1).toList()) {
@@ -39,8 +41,8 @@ public class ComisionSeeder {
       if (materiaOpt.isPresent()) {
         Materia materia = materiaOpt.get();
 
-        Comision comision = Comision.builder().codigo(codigoComision).materia(materia).horario(horario)
-                                    .cupo(cupo).build();
+        Comision comision = Comision.builder().codigo(codigoComision).materia(materia)
+                                    .horario(horario).cupo(cupo).build();
 
         comisionRepository.save(comision);
       } else {
