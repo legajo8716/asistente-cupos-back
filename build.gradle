@@ -55,7 +55,7 @@ tasks.named('jacocoTestReport') {
     }
 }
 
-tasks.named('sonarqube') {
+tasks.named('sonar') {
     dependsOn tasks.named('jacocoTestReport')
 }
 
