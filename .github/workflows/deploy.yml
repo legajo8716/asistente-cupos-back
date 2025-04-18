@@ -1,8 +1,12 @@
 name: Deploy to Production
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Build and Test"]
+    types:
+      - completed
+    condition: |
+      github.event.workflow_run.head_branch == 'main'
 
 jobs:
   deploy-prod:
