@@ -48,7 +48,7 @@ public class EstudianteAcademicaSeeder {
 
         Set<Materia> materiasAnotadas = Arrays.stream(anotadas).map(materia->this.materiaRepository.findByCodigo(materia).orElseThrow(()->new RuntimeException("No se encontro la materia con el codigo: "+materia)))
                 .collect(Collectors.toSet());
-        HistoriaAcademica historiaAcademica = HistoriaAcademica.builder().insc3(insc3)
+        HistoriaAcademica historiaAcademica = HistoriaAcademica.builder().cantInscripciones3CursadasPrevias(insc3)
                 .inscAct(inscAct)
                 .aprobUlt(aprobUlt)
                 .inscTot(inscTot)

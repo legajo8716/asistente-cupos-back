@@ -23,7 +23,7 @@ public class HistoriaAcademica {
   @JoinColumn(name = "legajo_estudiante", referencedColumnName = "legajo", unique = true)
   private Estudiante estudiante;
 
-  private int insc3;
+  private int cantInscripciones3CursadasPrevias;
   private int inscAct;
   private int aprobUlt;
   private int inscTot;

@@ -34,7 +34,7 @@ public interface PeticionInscripcionMapper {
       return null;
     }
     HistoriaAcademica historiaAcademica = new HistoriaAcademica();
-    historiaAcademica.setInsc3(csvDto.getInsc3());
+    historiaAcademica.setCantInscripciones3CursadasPrevias(csvDto.getInsc3());
     historiaAcademica.setInscAct(csvDto.getInscAct());
     historiaAcademica.setAprobUlt(csvDto.getAprobUlt());
     historiaAcademica.setInscTot(csvDto.getInscTot());
