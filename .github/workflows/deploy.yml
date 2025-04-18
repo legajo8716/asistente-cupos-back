@@ -41,7 +41,7 @@ jobs:
       - name: Set up Docker Compose and Start Containers
         run: |
           echo "Starting Docker Compose with MySQL and Application..."
-          docker-compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.yml up -d
 
       - name: Wait for the database to be ready
         run: |
