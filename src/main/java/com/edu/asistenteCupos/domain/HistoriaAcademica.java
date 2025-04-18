@@ -24,7 +24,6 @@ public class HistoriaAcademica {
   private Estudiante estudiante;
 
   private int cantInscripciones3CursadasPrevias;
-  private int inscAct;
   private int aprobUlt;
   private int inscTot;
   private int aprobTot;
