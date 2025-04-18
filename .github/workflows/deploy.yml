@@ -5,11 +5,10 @@ on:
     workflows: ["Build and Test"]
     types:
       - completed
-    condition: |
-      github.event.workflow_run.head_branch == 'main'
 
 jobs:
   deploy-prod:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
     env:
       CHATGPT_APIKEY: ${{ secrets.CHATGPT_APIKEY }}
@@ -32,20 +31,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: app-jar
-          path: build/libs/
-
-      - name: Build and push Docker image (SHA and latest tags)
+      - name: Pull Docker image
         run: |
-            REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-            IMAGE_NAME=ghcr.io/$REPO_LOWER/app
-            echo "Using image name: $IMAGE_NAME"
-            docker build -t $IMAGE_NAME:${{ github.sha }} -t $IMAGE_NAME:latest .
-            docker push $IMAGE_NAME:${{ github.sha }}
-            docker push $IMAGE_NAME:latest
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME=ghcr.io/$REPO_LOWER/app
+          echo "Pulling image: $IMAGE_NAME"
+          docker pull $IMAGE_NAME:${{ github.sha }} || docker pull $IMAGE_NAME:latest
 
       - name: Set up Docker Compose and Start Containers
         run: |
