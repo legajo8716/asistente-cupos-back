@@ -34,8 +34,17 @@ jobs:
       - name: Generate Jacoco Test Report
         run: ./gradlew jacocoTestReport
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          name: app-jar
-          path: build/libs/*.jar
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push Docker image (SHA and latest tags)
+        run: |
+                REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+                IMAGE_NAME=ghcr.io/$REPO_LOWER/app
+                docker build -t $IMAGE_NAME:${{ github.sha }} -t $IMAGE_NAME:latest .
+                docker push $IMAGE_NAME:${{ github.sha }}
+                docker push $IMAGE_NAME:latest
