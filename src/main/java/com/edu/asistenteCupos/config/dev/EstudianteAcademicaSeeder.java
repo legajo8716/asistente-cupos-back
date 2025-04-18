@@ -43,7 +43,7 @@ public class EstudianteAcademicaSeeder {
         int inscTot = Integer.parseInt(row[6].trim());
         int aprobTot = Integer.parseInt(row[7].trim());
         int restantes = Integer.parseInt(row[8].trim());
-        String correlativas = row[9].trim();
+        Boolean cumpleCorrelatividad = Boolean.valueOf(row[9]);
         String[] anotadas = row[10].trim().split(",");
 
         Set<Materia> materiasAnotadas = Arrays.stream(anotadas).map(materia->this.materiaRepository.findByCodigo(materia).orElseThrow(()->new RuntimeException("No se encontro la materia con el codigo: "+materia)))
@@ -54,7 +54,7 @@ public class EstudianteAcademicaSeeder {
                 .inscTot(inscTot)
                 .aprobTot(aprobTot)
                 .restantes(restantes)
-                .correlativas(correlativas)
+                .cumpleCorrelatividad(cumpleCorrelatividad)
                 .anotadas(materiasAnotadas)
                 .build();
         Estudiante estudiante = Estudiante.builder().legajo(legajo)

@@ -29,7 +29,7 @@ public class HistoriaAcademica {
   private int inscTot;
   private int aprobTot;
   private int restantes;
-  private String correlativas;
+  private Boolean cumpleCorrelatividad;
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "historia_academica_anotadas",

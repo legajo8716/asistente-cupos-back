@@ -30,9 +30,9 @@ public class EstudianteSeederTest {
                 Materia.builder().codigo("80000").build()
         );
         HistoriaAcademica historiaAcedemica1 = HistoriaAcademica.builder().insc3(2)
-                .inscAct(0).aprobUlt(1).inscTot(6).aprobTot(3).restantes(5).correlativas("Si").anotadas(materiasCorrelativas).build();
+                .inscAct(0).aprobUlt(1).inscTot(6).aprobTot(3).restantes(5).cumpleCorrelatividad(true).anotadas(materiasCorrelativas).build();
         HistoriaAcademica historiaAcedemica2 = HistoriaAcademica.builder().insc3(2)
-                .inscAct(0).aprobUlt(1).inscTot(6).aprobTot(3).restantes(5).correlativas("Si").anotadas(materiasCorrelativas).build();
+                .inscAct(0).aprobUlt(1).inscTot(6).aprobTot(3).restantes(5).cumpleCorrelatividad(true).anotadas(materiasCorrelativas).build();
 
         Estudiante estudiante1 = Estudiante.builder().legajo("101").historiaAcademica(historiaAcedemica1).build();
         Estudiante estudiante2 = Estudiante.builder().legajo("100").historiaAcademica(historiaAcedemica2).build();
