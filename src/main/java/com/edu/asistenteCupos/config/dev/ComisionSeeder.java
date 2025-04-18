@@ -23,16 +23,17 @@ public class ComisionSeeder {
   private final ComisionRepository comisionRepository;
   private final MateriaRepository materiaRepository;
   private final ClasspathResourceLoader resourceLoader;
-  private final String nombreCsv = "comisiones.csv";
+  private final String nombreCsv = "csv/comisiones.csv";
 
   public void cargarComisiones(String nombreArchivo) throws Exception {
+    log.info("Comienza la carga de comisiones desde [{}].", nombreCsv);
     if (!comisionRepository.findAll().isEmpty()) {
       log.info("No se cargan comisiones porque ya existen.");
       return;
     }
-    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
+    List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|").stream().skip(1).toList();
 
-    for (String[] row : rows.stream().skip(1).toList()) {
+    for (String[] row : rows) {
       String codigoMateria = row[0];
       String codigoComision = row[1];
       String horario = row[2];
