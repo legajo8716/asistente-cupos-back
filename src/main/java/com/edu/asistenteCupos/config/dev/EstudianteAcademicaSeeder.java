@@ -55,7 +55,7 @@ public class EstudianteAcademicaSeeder {
                 .aprobTot(aprobTot)
                 .restantes(restantes)
                 .cumpleCorrelatividad(cumpleCorrelatividad)
-                .anotadas(materiasAnotadas)
+                .materiasActuales(materiasAnotadas)
                 .build();
         Estudiante estudiante = Estudiante.builder().legajo(legajo)
                                 .nombre(nombre).build();
