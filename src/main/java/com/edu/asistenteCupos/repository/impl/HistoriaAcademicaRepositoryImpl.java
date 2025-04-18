@@ -25,7 +25,7 @@ public class HistoriaAcademicaRepositoryImpl implements HistoriaAcademicaReposit
     }
 
     @Override
-    public Optional<HistoriaAcademica> findByCodigo(String legajo) {
-        return jpaRepository.findByCodigo(legajo);
-    }
+    public Optional<HistoriaAcademica> findByIdHistoriaAcademica(Long idHistoriaAcademica) {
+        return jpaRepository.findByIdHistoriaAcademica(idHistoriaAcademica);  }
+
 }

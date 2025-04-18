@@ -10,5 +10,5 @@ public interface HistoriaAcademicaRepository  {
 
     List<HistoriaAcademica> findAll();
 
-    Optional<HistoriaAcademica> findByCodigo(String legajo);
+    Optional<HistoriaAcademica> findByIdHistoriaAcademica(Long idHistoriaAcademica);
 }

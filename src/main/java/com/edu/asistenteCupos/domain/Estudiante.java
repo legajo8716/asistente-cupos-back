@@ -1,8 +1,6 @@
 package com.edu.asistenteCupos.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +16,6 @@ public class Estudiante {
   private String legajo;
   private String nombre;
   private String mail;
-  @OneToOne
+  @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL,fetch = FetchType.EAGER, orphanRemoval = true)
   private HistoriaAcademica historiaAcademica;
 }

@@ -10,7 +10,7 @@ public class HistoriaAcademicarRepositoryInMemory implements HistoriaAcademicaRe
 
     @Override
     public HistoriaAcademica save(HistoriaAcademica historia) {
-        data.put(historia.getLegajo(), historia);
+        data.put(historia.getEstudiante().getLegajo(), historia);
         return historia;
     }
 
@@ -21,8 +21,8 @@ public class HistoriaAcademicarRepositoryInMemory implements HistoriaAcademicaRe
     }
 
     @Override
-    public Optional<HistoriaAcademica> findByCodigo(String codigoMateria) {
-        return data.get(codigoMateria) != null ? Optional.of(data.get(codigoMateria)) : Optional.empty();
+    public Optional<HistoriaAcademica> findByIdHistoriaAcademica(Long idHistoriaAcademica) {
+        return data.get(idHistoriaAcademica) != null ? Optional.of(data.get(idHistoriaAcademica)) : Optional.empty();
     }
 }
 
