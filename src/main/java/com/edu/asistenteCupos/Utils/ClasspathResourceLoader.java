@@ -45,6 +45,7 @@ public class ClasspathResourceLoader {
       throw new IllegalArgumentException("Archivo [%s] no encontrado".formatted(path));
     }
 
-    return new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
+    return new BufferedReader(
+      new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
   }
 }

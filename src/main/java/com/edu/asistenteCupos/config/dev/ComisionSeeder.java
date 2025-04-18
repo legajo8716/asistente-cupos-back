@@ -6,6 +6,7 @@ import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.ComisionRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +18,18 @@ import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class ComisionSeeder {
-
   private final ComisionRepository comisionRepository;
   private final MateriaRepository materiaRepository;
   private final ClasspathResourceLoader resourceLoader;
   private final String nombreCsv = "comisiones.csv";
 
   public void cargarComisiones(String nombreArchivo) throws Exception {
+    if (!comisionRepository.findAll().isEmpty()) {
+      log.info("No se cargan comisiones porque ya existen.");
+      return;
+    }
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
 
     for (String[] row : rows.stream().skip(1).toList()) {
@@ -38,20 +43,23 @@ public class ComisionSeeder {
       if (materiaOpt.isPresent()) {
         Materia materia = materiaOpt.get();
 
-        Comision comision = Comision.builder().codigo(codigoComision).materia(materia).horario(horario)
-                                    .cupo(cupo).build();
+        Comision comision = Comision.builder().codigo(codigoComision).materia(materia)
+                                    .horario(horario).cupo(cupo).build();
 
         comisionRepository.save(comision);
       } else {
-        System.err.printf("Materia con código [%s] no encontrada para la comisión [%s - %n]",
-          codigoMateria, codigoComision);
+        String mensaje = String.format(
+          "Materia con código [%s] no encontrada para la comisión [%s - %n]", codigoMateria,
+          codigoComision);
+        log.error(mensaje);
       }
     }
+    log.info("Se cargaron [{}] comisiones.", rows.size() - 1);
   }
 
   @Bean
   @Order(2)
-  @Profile("dev")
+  @Profile({"dev", "test"})
   CommandLineRunner runComisionSeeder() {
     return args -> cargarComisiones(nombreCsv);
   }

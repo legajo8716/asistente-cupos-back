@@ -4,6 +4,7 @@ import com.edu.asistenteCupos.Utils.ClasspathResourceLoader;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,20 +15,26 @@ import java.util.*;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class MateriasSeeder {
   private final MateriaRepository materiaRepository;
   private final ClasspathResourceLoader resourceLoader;
   String nombreCsv = "materias.csv";
 
   public void cargarMaterias(String nombreArchivo) throws Exception {
+    if (!materiaRepository.findAll().isEmpty()) {
+      log.info("No se cargan materias porque ya existen.");
+      return;
+    }
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
     Map<String, Materia> materias = crearMateriasDesde(rows);
     asociarCorrelativas(rows, materias);
+    log.info("Se cargaron ${} materias.", materias.size());
   }
 
   @Bean
   @Order(1)
-  @Profile("dev")
+  @Profile({"dev", "test"})
   CommandLineRunner runMateriasSeeder() {
     return args -> cargarMaterias(nombreCsv);
   }

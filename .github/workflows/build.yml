@@ -1,0 +1,50 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ '*', 'main' ]
+
+env:
+  HOME: /home/runner
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Generate Jacoco Test Report
+        run: ./gradlew jacocoTestReport
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push Docker image (SHA and latest tags)
+        run: |
+                REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+                IMAGE_NAME=ghcr.io/$REPO_LOWER/app
+                docker build -t $IMAGE_NAME:${{ github.sha }} -t $IMAGE_NAME:latest .
+                docker push $IMAGE_NAME:${{ github.sha }}
+                docker push $IMAGE_NAME:latest

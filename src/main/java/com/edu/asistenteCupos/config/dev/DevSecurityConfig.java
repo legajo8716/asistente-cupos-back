@@ -9,9 +9,8 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@Profile("dev")
+@Profile({"dev", "test"})
 public class DevSecurityConfig {
-
   @Bean
   public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
