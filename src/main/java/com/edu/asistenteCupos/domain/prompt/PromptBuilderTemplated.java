@@ -8,7 +8,6 @@ import com.edu.asistenteCupos.domain.PeticionInscripcion;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
@@ -23,8 +22,6 @@ public class PromptBuilderTemplated {
   private String comisiones;
   private List<PeticionInscripcion> peticionesDeInscripcion;
   private PromptTemplateProvider promptTemplateProvider;
-  private String modelo;
-  private double temperatura;
 
   private PromptBuilderTemplated() {}
 
@@ -50,28 +47,12 @@ public class PromptBuilderTemplated {
     return this;
   }
 
-  public PromptBuilderTemplated conTemperatura(double temperatura) {
-    this.temperatura = temperatura;
-    return this;
-  }
-
-  public PromptBuilderTemplated conModelo(String modelo) {
-    this.modelo = modelo;
-    return this;
-  }
-
   public PromptBuilderTemplated conPeticionesDeInscripcion(List<PeticionInscripcion> peticionesDeInscripcion) {
     this.peticionesDeInscripcion = peticionesDeInscripcion;
     return this;
   }
 
   public Prompt construir() {
-    if (modelo == null || modelo.trim().isEmpty()) {
-      throw new IllegalStateException("El modelo no puede ser nulo o vacío.");
-    }
-    if (temperatura < 0.0 || temperatura > 1.0) {
-      throw new IllegalArgumentException("La temperatura debe estar entre 0.0 y 1.0.");
-    }
     if (materias == null && comisiones == null && peticionesDeInscripcion == null) {
       throw new IllegalArgumentException("Pone al menos uno, master.");
     }
@@ -81,8 +62,7 @@ public class PromptBuilderTemplated {
     variables.put("comisiones", comisiones);
     variables.put("peticiones", JsonConverter.toJson(peticionesDeInscripcion));
 
-    return new Prompt(List.of(systemMessageDesde(variables), userMessageDesde(variables)),
-      ChatOptions.builder().model(this.modelo).temperature(this.temperatura).build());
+    return new Prompt(List.of(systemMessageDesde(variables), userMessageDesde(variables)));
   }
 
   private Message userMessageDesde(Map<String, Object> variables) {

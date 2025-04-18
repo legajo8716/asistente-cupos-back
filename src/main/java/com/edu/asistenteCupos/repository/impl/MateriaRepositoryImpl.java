@@ -1,8 +1,8 @@
 package com.edu.asistenteCupos.repository.impl;
 
 import com.edu.asistenteCupos.domain.Materia;
-import com.edu.asistenteCupos.repository.spring.MateriaJpaRepository;
 import com.edu.asistenteCupos.repository.MateriaRepository;
+import com.edu.asistenteCupos.repository.spring.MateriaJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

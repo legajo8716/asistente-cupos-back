@@ -20,6 +20,9 @@ public class MateriasSeeder {
   String nombreCsv = "materias.csv";
 
   public void cargarMaterias(String nombreArchivo) throws Exception {
+    if (!materiaRepository.findAll().isEmpty()) {
+      return;
+    }
     List<String[]> rows = resourceLoader.leerCSV(nombreArchivo, "\\|");
     Map<String, Materia> materias = crearMateriasDesde(rows);
     asociarCorrelativas(rows, materias);
@@ -27,7 +30,7 @@ public class MateriasSeeder {
 
   @Bean
   @Order(1)
-  @Profile("dev")
+  @Profile({"dev", "test"})
   CommandLineRunner runMateriasSeeder() {
     return args -> cargarMaterias(nombreCsv);
   }

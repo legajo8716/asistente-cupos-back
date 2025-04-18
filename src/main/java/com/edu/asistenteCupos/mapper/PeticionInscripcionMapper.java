@@ -55,4 +55,4 @@ public interface PeticionInscripcionMapper {
       throw new RuntimeException("Error al convertir PeticionInscripcion a JSON", e);
     }
   }
-  }
+}
