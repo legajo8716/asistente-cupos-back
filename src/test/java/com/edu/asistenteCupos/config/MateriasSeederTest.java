@@ -5,25 +5,47 @@ import com.edu.asistenteCupos.config.dev.MateriasSeeder;
 import com.edu.asistenteCupos.domain.Materia;
 import com.edu.asistenteCupos.repository.MateriaRepository;
 import com.edu.asistenteCupos.repository.impl.memory.MateriaRepositoryInMemory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class MateriasSeederTest {
+  MateriaRepository materiaRepository;
+  ClasspathResourceLoader resourceLoader;
+  MateriasSeeder materiasSeeder;
+
+  @BeforeEach
+  void setUp() {
+    materiaRepository = new MateriaRepositoryInMemory();
+    resourceLoader = mock(ClasspathResourceLoader.class);
+    materiasSeeder = new MateriasSeeder(materiaRepository, resourceLoader);
+  }
+
   @Test
-  void cargaMateriasDesdeCSVDeTest() throws Exception {
-    MateriaRepository materiaRepo = new MateriaRepositoryInMemory();
-    ClasspathResourceLoader loader = new ClasspathResourceLoader();
+  void cargaMaterias_yCorrelativas_correctamente() throws Exception {
+    List<String[]> data = List.of(new String[]{"nombre", "codigo", "correlativas"},
+      new String[]{"Álgebra", "1001", ""}, new String[]{"Análisis I", "1002", "1001"},
+      new String[]{"Física I", "1003", "1001,1002"});
+    when(resourceLoader.leerCSV("csv/materias.csv", "\\|")).thenReturn(data);
 
-    MateriasSeeder seeder = new MateriasSeeder(materiaRepo, loader);
-    seeder.cargarMaterias("materias_test.csv");
 
-    List<Materia> materias = materiaRepo.findAll();
-    assertThat(materias).hasSize(2);
-    Materia test101 = materiaRepo.findByCodigo("TEST101").orElseThrow();
-    assertThat(test101.getNombre()).isEqualTo("Introducción a los Testeos");
-    assertThat(test101.getCorrelativas()).isEmpty();
+    materiasSeeder.cargarMaterias("csv/materias.csv");
+
+
+    Materia analisis = materiaRepository.findByCodigo("1002").orElseThrow();
+    assertEquals(1, analisis.getCorrelativas().size());
+    assertEquals("1001", analisis.getCorrelativas().get(0).getCodigo());
+
+    Materia fisica = materiaRepository.findByCodigo("1003").orElseThrow();
+    assertEquals(2, fisica.getCorrelativas().size());
+
+    List<String> codigos = fisica.getCorrelativas().stream().map(Materia::getCodigo).toList();
+    assertTrue(codigos.containsAll(List.of("1001", "1002")));
   }
 }
