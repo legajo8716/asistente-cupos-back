@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CHATGPT_APIKEY: ${{ secrets.CHATGPT_APIKEY }}
-      MYSQL_PORT: ${{ variables.MYSQL_PORT }}
+      MYSQL_PORT: 3306
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_DATABASE: ${{ variables.DB_DATABASE }}
+      DB_DATABASE: flav-ia
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
 
     steps:
