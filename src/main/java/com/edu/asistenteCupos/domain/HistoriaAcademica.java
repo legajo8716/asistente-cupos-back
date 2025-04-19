@@ -24,10 +24,10 @@ public class HistoriaAcademica {
   private Estudiante estudiante;
 
   private int cantInscripciones3CursadasPrevias;
-  private int aprobUlt;
-  private int inscTot;
-  private int aprobTot;
-  private int restantes;
+  private int cantAprobadas3CursadasPrevias;
+  private int cantInscripcionesHistoricas;
+  private int cantMateriasAprobadasHistoricas;
+  private int cantMateriasRestantes;
   private Boolean cumpleCorrelatividad;
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(

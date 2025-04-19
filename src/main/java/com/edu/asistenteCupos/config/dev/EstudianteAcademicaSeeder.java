@@ -48,10 +48,10 @@ public class EstudianteAcademicaSeeder {
         Set<Materia> materiasAnotadas = Arrays.stream(anotadas).map(materia->this.materiaRepository.findByCodigo(materia).orElseThrow(()->new RuntimeException("No se encontro la materia con el codigo: "+materia)))
                 .collect(Collectors.toSet());
         HistoriaAcademica historiaAcademica = HistoriaAcademica.builder().cantInscripciones3CursadasPrevias(insc3)
-                .aprobUlt(aprobUlt)
-                .inscTot(inscTot)
-                .aprobTot(aprobTot)
-                .restantes(restantes)
+                .cantAprobadas3CursadasPrevias(aprobUlt)
+                .cantInscripcionesHistoricas(inscTot)
+                .cantMateriasAprobadasHistoricas(aprobTot)
+                .cantMateriasRestantes(restantes)
                 .cumpleCorrelatividad(cumpleCorrelatividad)
                 .materiasActuales(materiasAnotadas)
                 .build();

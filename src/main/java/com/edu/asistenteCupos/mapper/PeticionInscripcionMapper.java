@@ -35,10 +35,10 @@ public interface PeticionInscripcionMapper {
     }
     HistoriaAcademica historiaAcademica = new HistoriaAcademica();
     historiaAcademica.setCantInscripciones3CursadasPrevias(csvDto.getInsc3());
-    historiaAcademica.setAprobUlt(csvDto.getAprobUlt());
-    historiaAcademica.setInscTot(csvDto.getInscTot());
-    historiaAcademica.setAprobTot(csvDto.getAprobTot());
-    historiaAcademica.setRestantes(csvDto.getRestantes());
+    historiaAcademica.setCantAprobadas3CursadasPrevias(csvDto.getAprobUlt());
+    historiaAcademica.setCantInscripcionesHistoricas(csvDto.getInscTot());
+    historiaAcademica.setCantMateriasAprobadasHistoricas(csvDto.getAprobTot());
+    historiaAcademica.setCantMateriasRestantes(csvDto.getRestantes());
 
     return historiaAcademica;
   }
